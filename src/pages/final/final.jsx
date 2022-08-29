@@ -8,9 +8,8 @@ const FinalPage = inject('MainStore')(
     observer(({ MainStore }) => {
         return (
             <section className='tile final'>
-                <p className='final__headline'>Это было круто!</p>
+                <p className='final__headline'>Ваш результат:</p>
                 <div className='final__result__wrapper'>
-                    <p className='final__declaration'>Ваш результат:</p>
                     <h2 className='final__result'>{MainStore.result.speed}</h2>
                     <span className='final__speed-unit'>знаков в минуту</span>
                 </div>
