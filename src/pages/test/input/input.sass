@@ -29,6 +29,20 @@
 
             &::before
                 position: absolute
-                right: -.3rem
-                bottom: 0
+                right: -.33rem
+                bottom: 0%
                 content: '|'
+
+                color: black
+
+                animation: cursorFade 400ms infinite
+
+@keyframes cursorFade
+    0%
+        opacity: 100%
+
+    50%
+        opacity: 0
+
+    100%
+        opacity: 100%
