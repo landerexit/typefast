@@ -1,5 +1,5 @@
+import React from 'react';
 import { inject, observer } from "mobx-react";
-import { toJS } from "mobx";
 
 import './keyboard.sass'
 
@@ -23,7 +23,10 @@ const upperCaseLayout =
 
 const KeyboardComponent = inject('MainStore')(
     observer(({ MainStore }) => {
-        let keysLayout = MainStore.isUpperCase ? upperCaseLayout : lowerCaseLayout
+        React.useEffect(() => {
+        }, [MainStore.pressedButtons])
+
+        const keysLayout = MainStore.isUpperCase ? upperCaseLayout : lowerCaseLayout
 
         return (
             <section
