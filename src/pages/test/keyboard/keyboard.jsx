@@ -25,8 +25,6 @@ const KeyboardComponent = inject('MainStore')(
     observer(({ MainStore }) => {
         let keysLayout = MainStore.isUpperCase ? upperCaseLayout : lowerCaseLayout
 
-        console.log(toJS(MainStore.pressedButtons))
-
         return (
             <section
                 className={`keyboard ${MainStore.isUpperCase ? " keyboard__shift" : ""}`}
