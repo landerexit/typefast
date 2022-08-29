@@ -1,0 +1,36 @@
+@import './_vars'
+
+body
+    background-color: $clr-primary-500
+    font-family: 'Inter', sans-serif
+
+    color: $clr-secondary-500
+
+    overflow: hidden
+
+.main
+    width: 100%
+    height: 98vh
+
+    display: flex
+
+    justify-content: center
+    align-items: center
+
+.tile
+    display: flex
+    flex-direction: column
+
+    justify-content: center
+    align-items: center
+
+    width: 65rem
+
+    box-shadow: 0 0 1rem .1rem $clr-primary-700
+
+    border-radius: .5rem
+
+    padding: 3rem
+
+    & > *+*
+        margin-top: 2rem

@@ -1,0 +1,80 @@
+@import '../../../styles/_vars'
+
+.keyboard
+    border: 2px solid $clr-primary-700
+
+    padding: 1rem
+
+    width: 100%
+    height: 22rem
+
+    display: flex
+    flex-direction: column
+
+    border-radius: .5rem
+
+    & > *+*
+        margin-top: .4rem
+
+    &__shift
+        text-transform: uppercase
+
+    &__row
+        display: flex
+
+        width: 100%
+        height: 50%
+        & > *+*
+            margin-left: .5rem
+
+    &__change-lang
+        align-self: center
+        position: fixed
+
+        background-color: $clr-primary-500
+        padding: 2rem
+
+        visibility: hidden
+
+        font-size: 1.5rem
+
+        border-radius: .5rem
+        box-shadow: 0 0 1rem .1rem $clr-primary-700
+
+        &__active
+
+            visibility: visible
+
+    &__button
+        display: flex
+
+        justify-content: center
+        align-items: center
+
+        height: 100%
+        width: 100%
+
+        padding: 1rem
+
+        border-radius: .5rem
+
+        font-size: 1.25rem
+        font-weight: 500
+
+        transition-duration: 300ms
+
+        color: $clr-primary-700
+        border: 2px solid $clr-primary-700
+
+        &__active
+            background-color: $clr-primary-700
+            color: $clr-primary-500
+
+        &__wrong
+            background-color: red
+            border: 2px solid red
+            color: $clr-primary-500
+
+        &__next
+            border: 2px solid green
+            color: green
