@@ -12,7 +12,7 @@ const FinalPage = inject('MainStore')(
                 <div className='final__result__wrapper'>
                     <div className='final__result__section'>
                         <h2 className='final__result'>{MainStore.result.speed}</h2>
-                        <span className='final__speed-unit'>знака в минуту</span>
+                        <span className='final__speed-unit'>знаков в минуту</span>
                     </div>
                     <div className='final__result__section'>
                         <h2 className='final__result__right-clicks'>{MainStore.result.rightClicksPercentage}%</h2>
