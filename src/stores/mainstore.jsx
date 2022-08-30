@@ -37,6 +37,9 @@ class MainStore {
         })
     }
 
+    REGEXP_ENG = /[A-Za-z1-9 -/:-@[-`{-~]/
+    NOT_LETTERS_KEYS = ['Shift', 'Tab', 'Alt', 'CapsLock', 'Escape', 'Backspace', 'Meta']
+
     notEng = false
 
     pressedButtons = [{ key: "blob", code: "blob" }]
@@ -46,11 +49,27 @@ class MainStore {
 
     gameStatus = 0
 
-    phrase = ['', '']
-    result = {}
+    phrase = { typed: '', untyped: '' }
+    result = {
+        startTime: {},
+        phraseLength: 0,
+        speed: 0,
+        mainKeyCounter: 0,
+        wrongKeyCounter: 0,
+        rightClicksPercentage: 0,
+    }
 
     async startGame() {
-        this.result = { startTime: new Date().getTime(), phraseLength: 0, speed: 0 }
+        this.result = {
+            ...this.result,
+            startTime: new Date().getTime(),
+            phraseLength: 0,
+            speed: 0,
+            mainKeyCounter: 0,
+            wrongKeyCounter: 0,
+            rightClicksPercentage: 0,
+        }
+
         await this.getText()
     }
 
@@ -59,10 +78,9 @@ class MainStore {
 
         this.result = {
             ...this.result,
-            speed: Math.floor(this.result.phraseLength / ((endTime - this.result.startTime) / 1000 / 60))
+            speed: Math.floor(this.result.phraseLength / ((endTime - this.result.startTime) / 1000 / 60)),
+            rightClicksPercentage: 100 - Math.floor(this.result.wrongKeyCounter / (this.result.mainKeyCounter / 100)),
         }
-
-        console.log(this.result)
     }
 
     addPressedButton(e, theKey = e.key, theCode = e.code) {
@@ -91,8 +109,12 @@ class MainStore {
 
     handleKeyDown(e) {
         this.checkIsCapsLocked(e)
-
         this.checkEngLayout(e)
+
+        if (!this.NOT_LETTERS_KEYS.includes(e.key)) {
+            this.result = { ...this.result, mainKeyCounter: this.result.mainKeyCounter + 1 }
+            this.checkNewLetter(e.key)
+        }
 
         if (!this.checkIsButtonPressed(e.key)) {
             if (e.key === 'CapsLock') {
@@ -156,7 +178,7 @@ class MainStore {
         } else {
             if (this.checkIsButtonPressed(tempButtonKey)) {
                 tempClassName += classNameActive
-            } else if (tempButtonKey === this.phrase[1][0]) {
+            } else if (tempButtonKey === this.phrase.untyped[0]) {
                 tempClassName += classNameNext
             }
         }
@@ -165,7 +187,7 @@ class MainStore {
     }
 
     checkEngLayout(e) {
-        if (!/[A-Za-z1-9 -/:-@[-`{-~]/.test(e.key)) {
+        if (!this.REGEXP_ENG.test(e.key)) {
             this.notEng = true
             setTimeout(() => {
                 this.notEng = false
@@ -190,18 +212,23 @@ class MainStore {
         return !!this.pressedButtons.find(button => button[type] === theKeyCode)
     }
 
-    checkNewLetter() {
-        if (this.pressedButtons[this.pressedButtons.length - 1].key === this.phrase[1][0]) {
-            if (this.phrase[1].length === 1) {
+    checkNewLetter(theKey) {
+        if (theKey === this.phrase.untyped[0]) {
+            if (this.phrase.untyped.length === 1) {
                 this.changeGameStatus()
-                this.phrase = ['', '']
+                this.phrase = {
+                    typed: '',
+                    untyped: ''
+                }
 
             } else {
-                this.phrase = [
-                    this.phrase[0] + this.phrase[1][0],
-                    this.phrase[1].slice(1)
-                ]
+                this.phrase = {
+                    typed: this.phrase.typed + this.phrase.untyped[0],
+                    untyped: this.phrase.untyped.slice(1)
+                }
             }
+        } else {
+            this.result = { ...this.result, wrongKeyCounter: this.result.wrongKeyCounter + 1 }
         }
 
     }
@@ -223,7 +250,10 @@ class MainStore {
             .catch(err => console.error(err));
 
         this.result = { ...this.result, phraseLength: response[0].length }
-        this.phrase = ['', response[0]]
+        this.phrase = {
+            typed: '',
+            untyped: response[0]
+        }
     }
 }
 

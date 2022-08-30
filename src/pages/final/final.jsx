@@ -10,8 +10,14 @@ const FinalPage = inject('MainStore')(
             <section className='tile final'>
                 <p className='final__headline'>Ваш результат:</p>
                 <div className='final__result__wrapper'>
-                    <h2 className='final__result'>{MainStore.result.speed}</h2>
-                    <span className='final__speed-unit'>знаков в минуту</span>
+                    <div className='final__result__section'>
+                        <h2 className='final__result'>{MainStore.result.speed}</h2>
+                        <span className='final__speed-unit'>знака в минуту</span>
+                    </div>
+                    <div className='final__result__section'>
+                        <h2 className='final__result__right-clicks'>{MainStore.result.rightClicksPercentage}%</h2>
+                        <span className='final__speed-unit'>точности</span>
+                    </div>
                 </div>
                 <GameButton buttonText='попробовать снова' />
             </section>

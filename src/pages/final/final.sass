@@ -8,18 +8,27 @@
         font-weight: bold
 
         margin-top: 2rem
+        margin-block: 2rem
 
     &__result
         font-weight: bold
         font-size: 8rem
 
-        padding: 1rem 0
+        line-height: 6.25rem
+
+        &__right-clicks
+            font-weight: bold
+            font-size: 2.25rem
 
         &__wrapper
+            display: flex
             text-align: center
             font-size: 1.25rem
 
             padding: 2rem
+
+            & > *+*
+                margin-left: 1rem
 
     &__speed-unit
         font-size: 1rem
