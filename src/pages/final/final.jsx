@@ -16,7 +16,7 @@ const FinalPage = inject('MainStore')(
                     </div>
                     <div className='final__result__section'>
                         <h2 className='final__result__right-clicks'>{MainStore.result.rightClicksPercentage}%</h2>
-                        <span className='final__speed-unit'>точности</span>
+                        <span className='final__speed-unit'>точность</span>
                     </div>
                 </div>
                 <GameButton buttonText='попробовать снова' />
